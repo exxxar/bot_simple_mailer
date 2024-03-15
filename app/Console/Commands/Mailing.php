@@ -98,12 +98,17 @@ class Mailing extends Command
                     ]);
                 }
 
-                $telegram = new Api($bot->bot_token);
+                try {
+                    $telegram = new Api($bot->bot_token);
 
-                if (is_null($images))
-                    $telegram->sendMessage($tmp);
-                else
-                    $telegram->sendPhoto($tmp);
+                    if (is_null($images))
+                        $telegram->sendMessage($tmp);
+                    else
+                        $telegram->sendPhoto($tmp);
+                }catch (\Exception $e){
+
+                }
+
 
                 sleep(random_int(1, 3));
             }
