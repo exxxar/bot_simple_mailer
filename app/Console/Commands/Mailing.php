@@ -94,7 +94,7 @@ class Mailing extends Command
                     ];
 
                 if (!is_null($inlineKeyboard)) {
-                    Log::info(print_r($inlineKeyboard,true));
+
                     $tmp["reply_markup"] = json_encode([
                         'inline_keyboard' => $inlineKeyboard,
                     ]);
@@ -114,7 +114,6 @@ class Mailing extends Command
                     $queueLog->status = false;
                     $queueLog->save();
 
-                    Log::info($e);
                 }
 
 
