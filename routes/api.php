@@ -25,7 +25,7 @@ Route::apiResource('queue-logs', App\Http\Controllers\QueueLogController::class)
 
 Route::post("/notification", function (Request $request) {
     $request->validate([
-        "bot_id" => "required|number",
+        "bot_id" => "required",
         "message" => "required"
     ]);
 
