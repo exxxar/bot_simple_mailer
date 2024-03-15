@@ -105,8 +105,12 @@ class Mailing extends Command
                         $telegram->sendMessage($tmp);
                     else
                         $telegram->sendPhoto($tmp);
-                }catch (\Exception $e){
 
+                    $queueLog->status = true;
+                    $queueLog->save();
+                }catch (\Exception $e){
+                    $queueLog->status = false;
+                    $queueLog->save();
                 }
 
 
