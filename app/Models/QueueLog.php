@@ -20,6 +20,7 @@ class QueueLog extends Model
         'bot_user_id',
         'queue_id',
         'sent_at',
+        'status',
     ];
 
     /**
@@ -32,6 +33,7 @@ class QueueLog extends Model
         'bot_id' => 'integer',
         'bot_user_id' => 'integer',
         'queue_id' => 'integer',
+        'status' => 'boolean',
         'sent_at' => 'timestamp',
     ];
 
