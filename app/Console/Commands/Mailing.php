@@ -8,6 +8,7 @@ use App\Models\Queue;
 use App\Models\QueueLog;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 
@@ -93,6 +94,7 @@ class Mailing extends Command
                     ];
 
                 if (!is_null($inlineKeyboard)) {
+                    Log::info(print_r($inlineKeyboard,true));
                     $tmp["reply_markup"] = json_encode([
                         'inline_keyboard' => $inlineKeyboard,
                     ]);

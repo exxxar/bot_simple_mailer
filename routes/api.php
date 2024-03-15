@@ -34,7 +34,7 @@ Route::post("/notification", function (Request $request) {
         'content' => $request->message ?? null,
         'reply_keyboard' => $request->reply_keyboard ?? null,
         'inline_keyboard' => $request->inline_keyboard ?? null,
-        'images' => $request->images ?? null,
+        'images' => json_decode($request->images ?? '[]'),
         'videos' => $request->videos ?? null,
         'audios' => $request->audios ?? null,
     ]);
