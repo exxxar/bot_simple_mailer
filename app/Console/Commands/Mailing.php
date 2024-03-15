@@ -113,6 +113,8 @@ class Mailing extends Command
                 }catch (\Exception $e){
                     $queueLog->status = false;
                     $queueLog->save();
+
+                    Log::info($e->getMessage()." ".$e->getLine());
                 }
 
 
