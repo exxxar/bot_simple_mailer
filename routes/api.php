@@ -32,8 +32,8 @@ Route::post("/notification", function (Request $request) {
     \App\Models\Queue::query()->create([
         'bot_id' => $request->bot_id,
         'content' => $request->message ?? null,
-        'reply_keyboard' => $request->reply_keyboard ?? null,
-        'inline_keyboard' => $request->inline_keyboard ?? null,
+        'reply_keyboard' => is_null($request->reply_keyboard ?? null) ? null : json_decode($request->reply_keyboard),
+        'inline_keyboard' => is_null($request->inline_keyboard ?? null) ? null : json_decode($request->inline_keyboard),
         'images' => json_decode($request->images ?? '[]'),
         'videos' => $request->videos ?? null,
         'audios' => $request->audios ?? null,
