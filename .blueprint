@@ -1,0 +1,26 @@
+created:
+    - app/Http/Controllers/QueueController.php
+    - app/Http/Controllers/QueueLogController.php
+    - database/factories/QueueFactory.php
+    - database/factories/QueueLogFactory.php
+    - database/migrations/2024_03_15_113623_create_queues_table.php
+    - database/migrations/2024_03_15_113624_create_queue_logs_table.php
+    - app/Models/Queue.php
+    - app/Models/QueueLog.php
+    - database/seeders/QueueSeeder.php
+    - database/seeders/QueueLogSeeder.php
+    - tests/Feature/Http/Controllers/QueueControllerTest.php
+    - tests/Feature/Http/Controllers/QueueLogControllerTest.php
+    - app/Http/Requests/QueueStoreRequest.php
+    - app/Http/Requests/QueueUpdateRequest.php
+    - app/Http/Requests/QueueLogStoreRequest.php
+    - app/Http/Requests/QueueLogUpdateRequest.php
+    - app/Http/Resources/QueueCollection.php
+    - app/Http/Resources/QueueResource.php
+    - app/Http/Resources/QueueLogCollection.php
+    - app/Http/Resources/QueueLogResource.php
+updated:
+    - routes/api.php
+models:
+    Queue: { bot_id: 'id foreign:bots', content: longtext, reply_keyboard: 'json nullable', inline_keyboard: 'json nullable', images: 'json nullable', sent_at: 'timestamp nullable', relationships: { belongsTo: Bot, hasMany: QueueLog } }
+    QueueLog: { bot_id: 'id foreign:bots', bot_user_id: 'id foreign:bot_users', queue_id: 'id foreign:queues', sent_at: 'timestamp nullable', relationships: { belongsTo: 'Bot, BotUser, Queue' } }
