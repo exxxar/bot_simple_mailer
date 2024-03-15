@@ -96,7 +96,7 @@ class Mailing extends Command
                 if (!is_null($inlineKeyboard)) {
                     Log::info(print_r($inlineKeyboard,true));
                     $tmp["reply_markup"] = json_encode([
-                        'inline_keyboard' => json_decode($inlineKeyboard),
+                        'inline_keyboard' => $inlineKeyboard,
                     ]);
                 }
 
