@@ -52,13 +52,18 @@ class Mailing extends Command
         ini_set('max_execution_time', $timeLimit * 5 + 60);
 
         foreach ($queues as $queue) {
-            $timestamp = strtotime($queue->cron_time . ":00");
 
-            $now = Carbon::now()->timestamp;
+            if (!is_null($queue->cron_time)) {
+                $timestamp = strtotime($queue->cron_time . ":00");
 
-            Log::info("timestamp =>$timestamp and now=>$now");
-            if ($now < $timestamp)
-                continue;
+                $now = Carbon::now()->timestamp;
+
+                Log::info("timestamp =>$timestamp and now=>$now");
+
+                if ($now < $timestamp)
+                    continue;
+            }
+
 
             $queue->sent_at = Carbon::now();
             $queue->save();
