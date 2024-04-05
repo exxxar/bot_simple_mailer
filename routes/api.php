@@ -37,5 +37,6 @@ Route::post("/notification", function (Request $request) {
         'images' => json_decode($request->images ?? '[]'),
         'videos' => $request->videos ?? null,
         'audios' => $request->audios ?? null,
+        'cron_time' => $request->cron_time ?? null,
     ]);
 });
