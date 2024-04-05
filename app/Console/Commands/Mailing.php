@@ -114,8 +114,16 @@ class Mailing extends Command
 
                     if (is_null($images))
                         $telegram->sendMessage($tmp);
-                    else
+                    else {
                         $telegram->sendPhoto($tmp);
+                        if (mb_strlen($text) > 1000)
+                            $telegram->sendMessage([
+                                'chat_id' => $botUser->telegram_chat_id,
+                                "text" => mb_substr($text, 1001),
+                                "parse_mode" => "HTML",
+                            ]);
+                    }
+
 
                     $queueLog->status = true;
                     $queueLog->save();
