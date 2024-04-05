@@ -52,6 +52,14 @@ class Mailing extends Command
         ini_set('max_execution_time', $timeLimit * 5 + 60);
 
         foreach ($queues as $queue) {
+            $timestamp = strtotime($queue->cron_time . ":00");
+
+            $now = Carbon::now()->timestamp;
+
+            Log::info("timestamp =>$timestamp and now=>$now");
+            if ($now < $timestamp)
+                continue;
+
             $queue->sent_at = Carbon::now();
             $queue->save();
 
@@ -78,7 +86,7 @@ class Mailing extends Command
                 $text = $queue->content ?? 'Текст рассылки';
                 $images = $queue->images ?? null;
 
-                if (is_null($images))
+                if (empty($images ?? []))
                     $tmp = [
                         'chat_id' => $botUser->telegram_chat_id,
                         "text" => $text,
@@ -110,7 +118,7 @@ class Mailing extends Command
 
                     $queueLog->status = true;
                     $queueLog->save();
-                }catch (\Exception $e){
+                } catch (\Exception $e) {
                     $queueLog->status = false;
                     $queueLog->save();
 

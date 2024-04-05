@@ -21,6 +21,7 @@ class Queue extends Model
         'content',
         'reply_keyboard',
         'inline_keyboard',
+        'cron_time',
         'images',
         'sent_at',
     ];
@@ -36,6 +37,7 @@ class Queue extends Model
         'reply_keyboard' => 'array',
         'inline_keyboard' => 'array',
         'images' => 'array',
+        'cron_time' => 'time',
         'sent_at' => 'timestamp',
     ];
 
