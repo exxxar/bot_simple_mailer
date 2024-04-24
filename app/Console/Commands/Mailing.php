@@ -56,7 +56,7 @@ class Mailing extends Command
         foreach ($queues as $queue) {
 
             if (!is_null($queue->cron_time)) {
-                $now = Carbon::now()->timestamp;
+                $now = Carbon::now("+3:00")->timestamp;
 
                 if ($now < Carbon::parse($queue->cron_time)->timestamp)
                     continue;
