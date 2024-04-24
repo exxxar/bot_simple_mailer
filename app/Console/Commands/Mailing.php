@@ -41,8 +41,11 @@ class Mailing extends Command
             ->whereNull("sent_at")
             ->get();
 
-        if (count($queues) == 0)
+        if (count($queues) == 0){
+            ini_set('max_execution_time', 300);
             return;
+        }
+
 
         $timeLimit = 0;
         foreach ($queues as $queue) {
