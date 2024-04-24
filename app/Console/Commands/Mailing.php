@@ -131,6 +131,7 @@ class Mailing extends Command
                     $queueLog->status = false;
                     $queueLog->save();
 
+                    Log::info($e);
                 }
 
 
