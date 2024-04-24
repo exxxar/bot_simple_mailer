@@ -51,7 +51,7 @@ class Mailing extends Command
 
         }
 
-        ini_set('max_execution_time', $timeLimit * 5 + 60);
+        ini_set('max_execution_time', $timeLimit * 2 + 60);
 
         foreach ($queues as $queue) {
 
@@ -140,8 +140,7 @@ class Mailing extends Command
                     $queueLog->save();
 
                 } catch (Exception $e) {
-
-
+                    Log::info($e);
                 }
 
 
