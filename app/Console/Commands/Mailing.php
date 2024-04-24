@@ -145,7 +145,7 @@ class Mailing extends Command
                 }
 
 
-                sleep(random_int(1, 3));
+                sleep(random_int(0, 1));
             }
         }
 
