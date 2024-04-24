@@ -87,14 +87,15 @@ class Mailing extends Command
                 $text = $queue->content ?? 'Текст рассылки';
                 $images = $queue->images ?? null;
 
-                if (empty($images ?? []))
+                if (empty($images ?? []) || is_null($images[0] ?? null))
                     $tmp = [
                         'chat_id' => $botUser->telegram_chat_id,
                         "text" => $text,
                         "parse_mode" => "HTML",
 
                     ];
-                else
+
+                if (!is_null($images[0] ?? null))
                     $tmp = [
                         'chat_id' => $botUser->telegram_chat_id,
                         "caption" => mb_substr($text, 0, 1000),
