@@ -7,9 +7,11 @@ use App\Models\Bot;
 use App\Models\Queue;
 use App\Models\QueueLog;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
+use Telegram\Bot\Exceptions\TelegramOtherException;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 
 class Mailing extends Command
@@ -97,8 +99,7 @@ class Mailing extends Command
 
                     ];
 
-                if (!is_null($images[0] ?? null))
-                {
+                if (!is_null($images[0] ?? null)) {
                     $hasPhoto = true;
                     $tmp = [
                         'chat_id' => $botUser->telegram_chat_id,
@@ -134,11 +135,13 @@ class Mailing extends Command
 
                     $queueLog->status = true;
                     $queueLog->save();
-                } catch (\Exception $e) {
+                } catch (TelegramOtherException $e) {
                     $queueLog->status = false;
                     $queueLog->save();
 
+                } catch (Exception $e) {
                     Log::info($e);
+
                 }
 
 
