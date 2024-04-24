@@ -87,6 +87,8 @@ class Mailing extends Command
                 $text = $queue->content ?? 'Текст рассылки';
                 $images = $queue->images ?? null;
 
+                $hasPhoto = false;
+
                 if (empty($images ?? []) || is_null($images[0] ?? null))
                     $tmp = [
                         'chat_id' => $botUser->telegram_chat_id,
@@ -96,12 +98,16 @@ class Mailing extends Command
                     ];
 
                 if (!is_null($images[0] ?? null))
+                {
+                    $hasPhoto = true;
                     $tmp = [
                         'chat_id' => $botUser->telegram_chat_id,
                         "caption" => mb_substr($text, 0, 1000),
                         "parse_mode" => "HTML",
                         "photo" => $images[0]
                     ];
+
+                }
 
                 if (!is_null($inlineKeyboard)) {
 
@@ -113,7 +119,7 @@ class Mailing extends Command
                 try {
                     $telegram = new Api($bot->bot_token);
 
-                    if (is_null($images))
+                    if (!$hasPhoto)
                         $telegram->sendMessage($tmp);
                     else {
                         $telegram->sendPhoto($tmp);
