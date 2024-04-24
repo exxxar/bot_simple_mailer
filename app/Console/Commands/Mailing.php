@@ -41,6 +41,9 @@ class Mailing extends Command
             ->whereNull("sent_at")
             ->get();
 
+        if (count($queues) == 0)
+            return;
+
         $timeLimit = 0;
         foreach ($queues as $queue) {
             $botUsersCount = BotUser::query()
