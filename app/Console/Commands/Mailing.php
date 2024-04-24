@@ -58,7 +58,7 @@ class Mailing extends Command
             if (!is_null($queue->cron_time)) {
                 $now = Carbon::now()->timestamp;
 
-                if ($now < $queue->cron_time)
+                if ($now < Carbon::parse($queue->cron_time)->timestamp)
                     continue;
             }
 
@@ -140,7 +140,7 @@ class Mailing extends Command
                     $queueLog->save();
 
                 } catch (Exception $e) {
-                    Log::info($e);
+
 
                 }
 
