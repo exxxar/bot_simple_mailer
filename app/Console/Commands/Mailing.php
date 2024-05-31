@@ -37,6 +37,7 @@ class Mailing extends Command
      */
     public function handle(): void
     {
+        Log::info("current time=>".Carbon::now("+3")->format("Y-m-d H:i:s"));
         $queues = Queue::query()
             ->whereNull("sent_at")
             ->get();
@@ -62,14 +63,14 @@ class Mailing extends Command
         foreach ($queues as $queue) {
 
             if (!is_null($queue->cron_time)) {
-                $now = Carbon::now("+3:00")->timestamp;
+                $now = Carbon::now("+3")->timestamp;
 
                 if ($now < Carbon::parse($queue->cron_time)->timestamp)
                     continue;
             }
 
 
-            $queue->sent_at = Carbon::now();
+            $queue->sent_at = Carbon::now("+3");
             $queue->save();
 
             $bot = Bot::query()
@@ -87,7 +88,7 @@ class Mailing extends Command
                         'bot_id' => $bot->id,
                         'bot_user_id' => $botUser->id,
                         'queue_id' => $queue->id,
-                        'sent_at' => Carbon::now(),
+                        'sent_at' => Carbon::now("+3"),
                     ]);
 
                 $replyKeyboard = $queue->reply_keyboard ?? null;
